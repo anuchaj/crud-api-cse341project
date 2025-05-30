@@ -5,7 +5,7 @@ const doc = {
     title: 'Product API with OAuth',
     description: 'CRUD API with Google OAuth2 authentication',
   },
-  host: 'crud-api-oauth.onrender.com',
+  host: 'crud-api-oauthja.onrender.com',
   schemes: ['https'],
 };
 
