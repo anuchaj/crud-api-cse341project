@@ -3,14 +3,16 @@ const passport = require('passport');
 const router = express.Router();
 
 // Start Google login
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Google callback route
 router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.json({ message: 'Logged in with Google', user: req.user });
+    // Redirect to a frontend page or dashboard
+    res.redirect('https://crud-api-oauthja.onrender.com/api-docs')
+
   }
 );
 

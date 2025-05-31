@@ -41,12 +41,13 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Routes
 app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/auth', require('./routes/authRoutes'));
 
 // Root
-//app.get('/', (req, res) => {
-  //res.send('Welcome to CRUD API Sales');
-//});
+app.get('/', (req, res) => {
+  res.send('Welcome to CRUD API Sales');
+});
 
 const PORT = process.env.PORT || 3000;
 

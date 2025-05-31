@@ -21,7 +21,7 @@ exports.getById = async (req, res) => {
   }
 };
 
-// POST create new product
+// POST or create new product
 exports.create = async (req, res) => {
   try {
     const { name, price } = req.body;
