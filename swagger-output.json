@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Product API with OAuth",
-    "description": "CRUD API with Google OAuth2 authentication",
+    "description": "CRUD API with GitHub OAuth2 authentication",
     "version": "1.0.0"
   },
   "host": "crud-api-oauthja.onrender.com",
@@ -194,7 +194,7 @@
         }
       }
     },
-    "/auth/google": {
+    "/auth/github": {
       "get": {
         "description": "",
         "responses": {
@@ -204,7 +204,7 @@
         }
       }
     },
-    "/auth/google/callback": {
+    "/auth/github/callback": {
       "get": {
         "description": "",
         "responses": {

@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Product = require('../models/productModel');
 
 // GET all products
 exports.getAll = async (req, res) => {
@@ -40,7 +40,7 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      new: true, runValidators: true, // check code runValidators: true
     });
     if (!updated) return res.status(404).json({ message: 'Not found' });
     res.json(updated);

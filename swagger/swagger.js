@@ -1,15 +1,25 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
-const doc = {
-  info: {
-    title: 'Product API with OAuth',
-    description: 'CRUD API with Google OAuth2 authentication',
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Product and Category API with OAuth',
+      version: '1.0.0',
+      description: 'CRUD API with GitHub OAuth2 authentication'
+    },
+    servers: [
+      {
+        url: process.env.BASE_URL || 'http://localhost:3000',
+      },
+    ],
   },
-  host: 'crud-api-oauthja.onrender.com', // localhost:3000 for local testing
-  schemes: ['https'], // http 
+  apis: ['./routes/productRoutes.js', './routes/categoryRoutes.js'], 
 };
 
-const outputFile = './swagger-output.json';
-const endpointsFiles = ['./server.js'];
+const specs = swaggerJsdoc(options);
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+module.exports = (app) => {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+};
