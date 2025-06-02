@@ -61,9 +61,16 @@ router.get('/:id', ensureAuthenticated, productController.getById);
  *               - price
  *             properties:
  *               name:
- *                 type: string
+ *                 type: string,
+ *               description: String,
  *               price:
- *                 type: number
+ *                 type: number,
+*                category: String,
+                 quantity: Number,
+                 inStock: Boolean,
+                 supplier: String,
+                 createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } 
+ * 
  *     responses:
  *       201:
  *         description: Product created successfully
@@ -73,7 +80,12 @@ router.get('/:id', ensureAuthenticated, productController.getById);
 router.post('/',
   ensureAuthenticated,
   body('name').notEmpty().withMessage('Name is required'),
+  body('description'),
   body('price').isNumeric().withMessage('Price must be a number'),
+  body('category'),
+  body('quantity').isNumeric().withMessage('quantity must be a number'),
+  body('inStock').isBoolean().withMessage('True or False'),
+  body('supplier').notEmpty().withMessage('Name is required'),
   productController.create
 );
 
@@ -112,7 +124,12 @@ router.post('/',
 router.put('/:id',
   ensureAuthenticated,
   body('name').optional().notEmpty().withMessage('Name cannot be empty'),
+  body('description'),
   body('price').optional().isNumeric().withMessage('Price must be a number'),
+  body('category'),
+  body('quantity').isNumeric().withMessage('quantity must be a number'),
+  body('inStock').isBoolean().withMessage('True or False'),
+  body('supplier').notEmpty().withMessage('Name is required'),
   productController.update
 );
 

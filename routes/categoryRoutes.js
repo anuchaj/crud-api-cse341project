@@ -39,7 +39,9 @@ router.get('/', ensureAuthenticated, categoryController.getCategories);
  *             required:
  *               - name
  *             properties:
- *               name:
+ *               categoryName:
+ *                 type: string
+ *             description:
  *                 type: string
  *     responses:
  *       201:
@@ -50,7 +52,8 @@ router.get('/', ensureAuthenticated, categoryController.getCategories);
 router.post(
   '/',
   ensureAuthenticated,
-  body('name').notEmpty().withMessage('Name is required'),
+  body('categoryName').notEmpty().withMessage('Name is required'),
+  body('description').notEmpty().withMessage('Description is required'),
   categoryController.createCategory
 );
 
@@ -74,7 +77,9 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               categoryName:
+ *                 type: string
+ *               description:
  *                 type: string
  *     responses:
  *       200:
@@ -87,7 +92,8 @@ router.post(
 router.put(
   '/:id',
   ensureAuthenticated,
-  body('name').optional().notEmpty().withMessage('Name cannot be empty'),
+  body('categoryName').optional().notEmpty().withMessage('Name cannot be empty'),
+  body('description').optional().notEmpty().withMessage('Description cannot be empty'),
   categoryController.updateCategory
 );
 

@@ -13,9 +13,9 @@ exports.getCategories = async (req, res, next) => {
 // POST /api/categories - Create a new category
 exports.createCategory = async (req, res, next) => {
   try {
-    const { name, description } = req.body;
+    const { categoryName, description } = req.body;
 
-    const newCategory = new Category({ name, description });
+    const newCategory = new Category({ categoryName, description });
     await newCategory.save();
 
     res.status(201).json(newCategory);
@@ -27,11 +27,11 @@ exports.createCategory = async (req, res, next) => {
 // PUT /api/categories/:id - Update a category
 exports.updateCategory = async (req, res, next) => {
   try {
-    const { name, description } = req.body;
+    const { categoryName, description } = req.body;
 
     const updatedCategory = await Category.findByIdAndUpdate(
       req.params.id,
-      { name, description },
+      { categoryName, description },
       { new: true, runValidators: true }
     );
 
