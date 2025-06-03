@@ -115,8 +115,18 @@ router.post(
  *             properties:
  *               name:
  *                 type: string
+ *               description:
+ *                 type: string
  *               price:
  *                 type: number
+ *               category:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *               inStock:
+ *                 type: boolean
+ *               supplier:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Product updated successfully

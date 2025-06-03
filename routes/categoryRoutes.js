@@ -36,12 +36,10 @@ router.get('/', ensureAuthenticated, categoryController.getCategories);
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - categoryName
  *             properties:
  *               categoryName:
  *                 type: string
- *             description:
+ *               description:
  *                 type: string
  *     responses:
  *       201:
