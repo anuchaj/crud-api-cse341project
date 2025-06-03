@@ -50,25 +50,25 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "example": "String"
                 },
                 "description": {
-                  "example": "any"
+                  "example": "String"
                 },
                 "price": {
-                  "example": "any"
+                  "example": "Number"
                 },
                 "category": {
-                  "example": "any"
+                  "example": "String"
                 },
                 "quantity": {
-                  "example": "any"
+                  "example": "Number"
                 },
                 "inStock": {
-                  "example": "any"
+                  "example": "Boolean"
                 },
                 "supplier": {
-                  "example": "any"
+                  "example": "String"
                 }
               }
             }

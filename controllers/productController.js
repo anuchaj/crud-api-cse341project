@@ -30,15 +30,20 @@ exports.getById = async (req, res) => {
  */
 exports.create = async (req, res) => {
   try {
-    // Extract fields from the request body
+    // Destructure and extract fields from request body
     const { name, price, description, category, quantity, inStock, supplier } = req.body;
 
-    // Validate required fields
+    // Basic validation: name and price are required
     if (!name || price == null) {
       return res.status(400).json({ message: 'Name and price are required.' });
     }
 
-    // Create a new product object
+    // Check if the user is authenticated (req.user is set by Passport after OAuth login)
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: 'Unauthorized. No user info available.' });
+    }
+
+    // Create a new product and associate it with the authenticated user
     const product = new Product({
       name,
       price,
@@ -47,19 +52,23 @@ exports.create = async (req, res) => {
       quantity,
       inStock,
       supplier,
-      createdBy: req.user._id, // Automatically associate product with the logged-in user
+      createdBy: req.user._id // Store reference to the logged-in user's ObjectId
     });
 
-    // Save the product to the database
+    // Save product to database
     const savedProduct = await product.save();
 
-    // Send a success response
+    // Respond with the created product
     res.status(201).json(savedProduct);
+
   } catch (err) {
     console.error('Error creating product:', err.message);
+
+    // Return a 400 Bad Request error with details
     res.status(400).json({ error: 'Failed to create product. ' + err.message });
   }
 };
+
 
 /**
  * @desc    Update a product by ID

@@ -37,7 +37,7 @@ router.get('/', ensureAuthenticated, categoryController.getCategories);
  *           schema:
  *             type: object
  *             required:
- *               - name
+ *               - categoryName
  *             properties:
  *               categoryName:
  *                 type: string

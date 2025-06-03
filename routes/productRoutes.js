@@ -1,8 +1,9 @@
 const express = require('express');
 const { body } = require('express-validator');
-const router = express.Router();
 const productController = require('../controllers/productController');
 const { ensureAuthenticated } = require('../middlewares/authMiddleware');
+
+const router = express.Router();
 
 /**
  * @swagger
@@ -49,6 +50,8 @@ router.get('/:id', ensureAuthenticated, productController.getById);
  * /api/products:
  *   post:
  *     summary: Create a new product
+ *     security:
+ *       - bearerAuth: []
  *     tags: [Products]
  *     requestBody:
  *       required: true
@@ -56,33 +59,34 @@ router.get('/:id', ensureAuthenticated, productController.getById);
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - name
- *               - price
  *             properties:
  *               name:
- *                 type: string,
- *               description: String,
+ *                 type: string
+ *               description:
+ *                 type: string
  *               price:
- *                 type: number,
-*                category: String,
-                 quantity: Number,
-                 inStock: Boolean,
-                 supplier: String,
-                 createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } 
- * 
+ *                 type: number
+ *               category:
+ *                 type: string
+ *               quantity:
+ *                 type: number
+ *               inStock:
+ *                 type: boolean
+ *               supplier:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Product created successfully
  *       400:
- *         description: Validation error
+ *         description: Bad request
  */
-router.post('/',
+router.post(
+  '/',
   ensureAuthenticated,
-  body('name').notEmpty().withMessage('Name is required'),
-  body('description'),
+  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('description').notEmpty().withMessage('Cannot be empty'),
   body('price').isNumeric().withMessage('Price must be a number'),
-  body('category'),
+  body('category').notEmpty().withMessage('Cannot be empty'),
   body('quantity').isNumeric().withMessage('quantity must be a number'),
   body('inStock').isBoolean().withMessage('True or False'),
   body('supplier').notEmpty().withMessage('Name is required'),
@@ -124,9 +128,9 @@ router.post('/',
 router.put('/:id',
   ensureAuthenticated,
   body('name').optional().notEmpty().withMessage('Name cannot be empty'),
-  body('description'),
+  body('description').optional().notEmpty().withMessage('Cannot be empty'),
   body('price').optional().isNumeric().withMessage('Price must be a number'),
-  body('category'),
+  body('category').optional().notEmpty().withMessage('Cannot be empty'),
   body('quantity').isNumeric().withMessage('quantity must be a number'),
   body('inStock').isBoolean().withMessage('True or False'),
   body('supplier').notEmpty().withMessage('Name is required'),
